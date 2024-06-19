@@ -33,9 +33,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late Stream<StepCount> _stepCountStream;
   late Stream<PedestrianStatus> _pedestrianStatusStream;
-  String _status = 'stopped', _steps = '';
-  List _mySteps = [];
-
+  String _status = '';
+  String _steps = '';
 
   @override
   void initState() {
@@ -48,26 +47,26 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Pedometer App'),
+        title: const Text('Pedometer App'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Steps Taken',
               style: TextStyle(fontSize: 30),
             ),
             Text(
-              _mySteps.isNotEmpty ? _mySteps.last.toString() : "0",
-              style: TextStyle(fontSize: 50),
+              _steps,
+              style: const TextStyle(fontSize: 50),
             ),
-            Divider(
+            const Divider(
               height: 70,
               thickness: 0,
               color: Colors.white,
             ),
-            Text(
+            const Text(
               'Pedestrian Status',
               style: TextStyle(fontSize: 30),
             ),
@@ -82,8 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               _status,
               style: _status == 'walking' && _status == 'stopped'
-                  ? TextStyle(fontSize: 30, fontWeight: FontWeight.bold)
-                  : TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ? const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)
+                  : const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -105,8 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onStepCount(StepCount event) {
     setState(() {
-      _mySteps.add(event.steps);
-      //_steps = event.steps.toString();
+      _steps = event.steps.toString();
     });
   }
 
