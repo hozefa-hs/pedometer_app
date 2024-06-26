@@ -35,9 +35,16 @@ class _MyHomePageState extends State<MyHomePage> {
               'Steps Taken',
               style: TextStyle(fontSize: 30),
             ),
-            Text(
-              _steps,
-              style: const TextStyle(fontSize: 50),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return ScaleTransition(scale: animation, child: child);
+              },
+              child: Text(
+                '$_steps',
+                key: ValueKey<String>(_steps),
+                style: const TextStyle(fontSize: 50),
+              ),
             ),
             const Divider(
               height: 70,
