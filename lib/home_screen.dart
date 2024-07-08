@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -12,7 +13,8 @@ class _MyHomePageState extends State<MyHomePage> {
   late Stream<StepCount> _stepCountStream;
   late Stream<PedestrianStatus> _pedestrianStatusStream;
   String _status = '';
-  String _steps = '';
+  int _steps = 0;
+  int _targetSteps = 100;
 
   @override
   void initState() {
@@ -31,20 +33,29 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Steps Taken',
-              style: TextStyle(fontSize: 30),
-            ),
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return ScaleTransition(scale: animation, child: child);
-              },
-              child: Text(
-                '$_steps',
-                key: ValueKey<String>(_steps),
-                style: const TextStyle(fontSize: 50),
+            CircularPercentIndicator(
+              radius: 100.0,
+              animation: true,
+              animationDuration: 1000,
+              lineWidth: 20.0,
+              percent: calculatePercent(),
+              animateFromLastPercent: true,
+              center: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Steps Taken',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    "$_steps",
+                    style: const TextStyle(fontSize: 30),
+                  ),
+                ],
               ),
+              circularStrokeCap: CircularStrokeCap.round,
+              backgroundColor: Colors.grey,
+              progressColor: Colors.black,
             ),
             const Divider(
               height: 70,
@@ -89,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onStepCount(StepCount event) {
     setState(() {
-      _steps = event.steps.toString();
+      _steps = event.steps;
     });
   }
 
@@ -107,7 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onStepCountError(error) {
     setState(() {
-      _steps = 'Step count not available';
+      _steps = 0;
     });
+  }
+
+  double calculatePercent() {
+    return (_steps / _targetSteps).clamp(0.0, 1.0);
   }
 }

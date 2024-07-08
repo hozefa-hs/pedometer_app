@@ -36,6 +36,7 @@ dependencies:
   pedometer: ^4.0.1
 
   flutter_launcher_icons: ^0.13.1
+  percent_indicator: ^4.2.3
 
 flutter_launcher_icons:
     android: true
