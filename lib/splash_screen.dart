@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pedometer_app/home_screen.dart';
+import 'package:pedometer_app/theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -64,18 +65,30 @@ class _SplashScreenState extends State<SplashScreen> {
                   Container(
                     height: 50,
                     width: 300,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MyHomePage(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "Get Started",
-                        style: TextStyle(color: Colors.black),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomLeft,
+                          end: Alignment.topRight,
+                          colors: [
+                        lightColorScheme.secondary,
+                        lightColorScheme.primary,
+                      ]),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Center(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyHomePage(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "Get Started",
+                          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),

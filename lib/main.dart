@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pedometer_app/splash_screen.dart';
+import 'package:pedometer_app/theme.dart';
 import 'dart:async';
 import 'home_screen.dart';
 
@@ -15,11 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pedometer App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        fontFamily: 'Poppins',
-      ),
+      theme: lightmode,
       home: const SplashScreen(),
     );
   }
